@@ -76,6 +76,12 @@ For more detailed information on installing the tool, see the
 `installation section <http://prospector.readthedocs.io/en/latest/#installation>`_ of the tool's main page
 on ReadTheDocs.
 
+If pip shows version conflicts (packages requiring older versions of other packages), some packages may need to be held back manually:
+
+    pip uninstall flake8 pep8-naming
+    pip install prospector2 flake8==3.5.0 pep8-naming==0.3.3
+
+
 Documentation
 -------------
 
