@@ -44,8 +44,17 @@ class TestVirtualenvDetection(TestCase):
         run in Windows to be meaningful, though it shouldn't fail in other
         operating systems.
         """
-        path = [os.path.dirname(__file__), 'testdata', 'venvs']
+        venvs_path = [os.path.dirname(__file__), 'testdata', 'venvs']
+        path = venvs_path
         path.extend(['long_path_not_a_venv'] * 14)
         path.append('long_path_not_a_venv_long_path_not_a_v')
         path = os.path.join(*path)
+        os.makedirs(path)
+        """
+        with open(os.path.join(path, "README.txt") as stream:
+            stream.write("This file is only here to ensure that the"
+                         " parent directory is present in Git checkout")
+            # ^ deleted since path>256 prevents Windows git checkout :/
+        """
         self.assertFalse(is_virtualenv(path))
+        shutil.rmtree(venvs_path)
