@@ -131,7 +131,7 @@ class Prospector(object):
             self.summary['formatter'] = output_format
             formatter = FORMATTERS[output_format](self.summary, self.messages, self.config.profile)
             if not output_files:
-                self.write_to(formatter, sys.stdout)
+                self.write_to(formatter, sys.stderr)
             for output_file in output_files:
                 with open(output_file, 'w+') as target:
                     self.write_to(formatter, target)
