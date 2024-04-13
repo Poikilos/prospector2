@@ -21,12 +21,32 @@ _INSTALL_REQUIRES = [
     'dodgy>=0.1.9',
     'pyyaml',
     'mccabe>=0.5.0',
-    'pyflakes<2.0.0,>=0.8.1',
-    'pycodestyle<2.4.0,>=2.0.0',
-    'pep8-naming>=0.3.3',
+    'pyflakes<2.4.0,>=0.8.1',
+    'pycodestyle<2.8.0,>=2.0.0',
+    'pep8-naming>=0.3.3,<=0.12.1',
     'pydocstyle>=2.0.0',
     'pylint<2',
+    'flake8==3.9.1',
 ]
+# ^ Later versions of flake8 cause:
+# flake8 3.9.2 requires pycodestyle<2.8.0,>=2.7.0, but you'll have pycodestyle 2.3.1 which is incompatible.
+# flake8 3.9.2 requires pyflakes<2.4.0,>=2.3.0, but you'll have pyflakes 1.6.0 which is incompatible.
+# ^ flake8==3.5.0 causes:
+# pep8-naming 0.13.1 requires flake8>=3.9.1, but you'll have flake8 3.5.0 which is incompatible.
+# - 'pyflakes<2.0.0,>=0.8.1',
+#   'pycodestyle<2.7.0,>=2.0.0',
+#   - cause:
+#     flake8 3.9.1 requires pycodestyle<2.8.0,>=2.7.0, but you'll have pycodestyle 2.3.1 which is incompatible.
+#     flake8 3.9.1 requires pyflakes<2.4.0,>=2.3.0, but you'll have pyflakes 1.6.0 which is incompatible.
+#   - but unfortunately, 'pep8-naming>=0.13.1' has Python3-only inline formatting
+#     - 0.12.1 is last release (<0.13.0) with Python 2 support
+# Fix:
+# python2 -m pip uninstall --yes pycodestyle pyflakes pep8-naming flake8 prospector2
+# python2 -m pip uninstall --yes pylint-plugin-utils requirements-detector setoptconf dodgy pyyaml pydocstyle
+# cd prospector2
+# python2 -m pip install -e . # OR:
+# Require this:
+# prospector2 @ git+https://github.com/Poikilos/prospector2@master
 
 _PACKAGE_DATA = {
     'prospector2': [
