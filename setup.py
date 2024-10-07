@@ -26,9 +26,10 @@ _INSTALL_REQUIRES = [
     'pep8-naming>=0.3.3,<=0.12.1',
     'pydocstyle>=2.0.0',
     'pylint<2',
-    'flake8==3.9.1',
+    'flake8==3.5.0',
 ]
-# ^ Later versions of flake8 cause:
+# ^ flake8 dropped Python 2 support (in 4.0.0? <https://flake8.pycqa.org/en/latest/release-notes/4.0.0.html>)
+# ^ versions of flake8>3.5.0 cause:
 # flake8 3.9.2 requires pycodestyle<2.8.0,>=2.7.0, but you'll have pycodestyle 2.3.1 which is incompatible.
 # flake8 3.9.2 requires pyflakes<2.4.0,>=2.3.0, but you'll have pyflakes 1.6.0 which is incompatible.
 # ^ flake8==3.5.0 causes:
